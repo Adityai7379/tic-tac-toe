@@ -1,0 +1,311 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at 15% 20%, #35106f 0%, transparent 30%),
+        radial-gradient(circle at 85% 75%, #005ca8 0%, transparent 35%),
+        linear-gradient(135deg, #08052d, #00152f 50%, #032d55);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Decorative X and O */
+body::before {
+    content: "X        O        X";
+    position: fixed;
+    top: 80px;
+    left: 40px;
+    font-size: 70px;
+    font-weight: bold;
+    color: rgba(30, 150, 255, 0.18);
+    letter-spacing: 40px;
+    pointer-events: none;
+}
+
+body::after {
+    content: "O        X        O";
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    font-size: 60px;
+    font-weight: bold;
+    color: rgba(100, 50, 255, 0.18);
+    letter-spacing: 30px;
+    pointer-events: none;
+}
+
+/* Main area */
+body {
+    flex-direction: column;
+}
+
+/* Heading */
+h1 {
+    font-size: 64px;
+    letter-spacing: 8px;
+    margin-bottom: 35px;
+    text-align: center;
+
+    color: white;
+    text-shadow: 0 0 20px #008cff;
+}
+
+/* Make X and O colorful */
+h1::first-letter {
+    color: #ffd000;
+}
+
+/* Status */
+#status {
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+
+    padding: 18px;
+    margin-bottom: 18px;
+
+    border: 2px solid rgba(0, 140, 255, 0.5);
+    border-radius: 18px;
+
+    background: rgba(5, 20, 60, 0.75);
+    box-shadow: 0 0 20px rgba(0, 100, 255, 0.25);
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Game board */
+.game {
+    width: 570px;
+    height: 570px;
+    max-width: 90vw;
+    max-height: 90vw;
+
+    padding: 14px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    background: rgba(4, 17, 45, 0.9);
+
+    border: 2px solid #147cff;
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 15px #006eff,
+        0 0 40px rgba(0, 110, 255, 0.5);
+
+    position: relative;
+    z-index: 2;
+}
+
+/* Cells */
+.cell {
+    border: 2px solid rgba(90, 130, 180, 0.6);
+    border-radius: 15px;
+
+    background: rgba(8, 22, 50, 0.9);
+
+    color: white;
+    font-size: 70px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+/* Hover */
+.cell:hover {
+    transform: scale(1.03);
+    border-color: #00aaff;
+    box-shadow: 0 0 18px rgba(0, 170, 255, 0.5);
+}
+
+/* X */
+.cell.x {
+    color: #ffd000;
+    text-shadow:
+        0 0 10px #ffd000,
+        0 0 25px #ffd000;
+
+    border-color: #ffd000;
+    background: rgba(80, 60, 0, 0.45);
+}
+
+/* O */
+.cell.o {
+    color: white;
+    text-shadow:
+        0 0 10px white,
+        0 0 25px #00aaff;
+
+    border-color: #00aaff;
+}
+
+/* Winning cells */
+.cell.win {
+    background: rgba(255, 200, 0, 0.25);
+    border-color: #ffd000;
+
+    box-shadow:
+        0 0 15px #ffd000,
+        0 0 35px #ffd000;
+
+    animation: winner 0.8s infinite alternate;
+}
+
+@keyframes winner {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+/* Buttons */
+button {
+    font-family: Arial, sans-serif;
+}
+
+/* Reset / New Game */
+#reset,
+#newGame {
+    margin-top: 25px;
+    padding: 17px 35px;
+
+    border: none;
+    border-radius: 12px;
+
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#reset {
+    background: linear-gradient(135deg, #087cff, #155be8);
+
+    box-shadow: 0 5px 15px rgba(0, 100, 255, 0.4);
+}
+
+#newGame {
+    background: linear-gradient(135deg, #20c957, #12a83d);
+
+    box-shadow: 0 5px 15px rgba(0, 200, 70, 0.35);
+}
+
+#reset:hover,
+#newGame:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.15);
+}
+
+/* Score */
+.score {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    margin-top: 30px;
+}
+
+.score span {
+    min-width: 160px;
+
+    padding: 18px 25px;
+
+    text-align: center;
+
+    background: rgba(6, 22, 61, 0.85);
+
+    border: 1px solid rgba(0, 140, 255, 0.5);
+    border-radius: 15px;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    box-shadow: 0 0 15px rgba(0, 100, 255, 0.2);
+}
+
+#xScore {
+    color: #ffd000;
+    font-size: 28px;
+}
+
+#oScore {
+    color: #00cfff;
+    font-size: 28px;
+}
+
+#drawScore {
+    color: #35e65b;
+    font-size: 28px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 40px;
+        letter-spacing: 4px;
+    }
+
+    #status {
+        font-size: 18px;
+    }
+
+    .game {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    .cell {
+        font-size: 50px;
+    }
+
+    .score {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .score span {
+        min-width: 200px;
+    }
+}
+/* Winner cells */
+.cell.winner-x {
+    background: #ffd700 !important;
+    color: #000 !important;
+    box-shadow: 0 0 25px #ffd700;
+    transform: scale(1.05);
+}
+
+.cell.winner-o {
+    background: #00e5ff !important;
+    color: #000 !important;
+    box-shadow: 0 0 25px #00e5ff;
+    transform: scale(1.05);
+}
+.cell.winner {
+    background-color: gold;
+    color: black;
+    box-shadow: 0 0 20px gold;
+    transform: scale(1.05);
+}
